@@ -30,18 +30,208 @@ flutter pub get
 
 ## 基本使用示例
 
-（待更新）
+### 初始化語音識別引擎
+
+```dart
+import 'package:easy_speech_to_text/easy_speech_to_text.dart';
+
+void initializeSpeech() async {
+  try {
+    await EasySpeechToText.instance.initialize(
+      engine: SpeechEngine.native, // 預設使用系統原生語音引擎
+    );
+  } catch (e) {
+    print("初始化失敗: $e");
+  }
+}
+```
+
+### 檢查和請求權限
+
+```dart
+void checkPermissions() async {
+  bool hasPermission = await EasySpeechToText.instance.hasPermission();
+  if (!hasPermission) {
+    bool granted = await EasySpeechToText.instance.requestPermission();
+    print(granted ? "權限獲取成功" : "權限獲取失敗");
+  }
+}
+```
+
+### 開始語音識別
+
+```dart
+void startListening() {
+  EasySpeechToText.instance.startListening(
+    onResult: (text) {
+      print("識別結果: $text");
+    },
+    onError: (error) {
+      print("錯誤: $error");
+    },
+    partialResults: true, // 是否返回部分識別結果
+  );
+}
+```
+
+### 停止語音識別
+
+```dart
+void stopListening() async {
+  await EasySpeechToText.instance.stopListening();
+  print("語音識別已停止");
+}
+```
+
+### 將音頻檔案轉文字
+
+```dart
+void transcribeFile(String filePath) async {
+  String? result = await EasySpeechToText.instance.transcribe(
+    filePath: filePath,
+  );
+  print("轉錄結果: $result");
+}
+```
+
+### 設定自訂詞彙
+
+```dart
+void setCustomWords() {
+  EasySpeechToText.instance.setCustomWords(['Flutter', 'Dart']);
+  print("自訂詞彙已設定");
+}
+```
 
 ## API 說明
 
-（待更新）
+### `initialize`
+
+初始化語音識別引擎。支持的語音引擎包括 `native`（原生引擎），將來還可擴展為第三方雲端服務如 Google 或 Azure。
+
+```dart
+Future<void> initialize({
+  SpeechEngine engine = SpeechEngine.native,
+  Map<String, dynamic>? options,
+});
+```
+
+- **engine**: 指定語音引擎，預設為原生引擎。
+- **options**: 額外的引擎配置選項。
+
+### `hasPermission`
+
+檢查是否已獲取語音識別和麥克風權限。
+
+```dart
+Future<bool> hasPermission();
+```
+
+- **返回**: `true` 表示權限已獲取，`false` 表示權限未獲取。
+
+### `requestPermission`
+
+請求語音識別和麥克風權限。
+
+```dart
+Future<bool> requestPermission();
+```
+
+- **返回**: `true` 表示權限請求成功，`false` 表示請求被拒。
+
+### `startListening`
+
+開始語音識別並監聽結果。當識別結果或錯誤發生時，會調用指定的回調函數。
+
+```dart
+Future<void> startListening({
+  String? localeId,
+  List<String>? customWords,
+  bool partialResults = true,
+  Duration? pauseFor,
+  required Function(String text) onResult,
+  Function(String error)? onError,
+});
+```
+
+- **localeId**: 指定識別語言。
+- **customWords**: 自訂詞彙庫（僅 iOS 支援）。
+- **partialResults**: 是否返回部分識別結果。
+- **pauseFor**: 自動停止識別的間隔時間。
+- **onResult**: 識別結果的回調函數。
+- **onError**: 錯誤發生時的回調函數。
+
+### `stopListening`
+
+停止語音識別並返回最終結果。
+
+```dart
+Future<void> stopListening();
+```
+
+### `cancelListening`
+
+取消語音識別，不返回任何結果。
+
+```dart
+Future<void> cancelListening();
+```
+
+### `transcribe`
+
+將錄音檔案轉換為文字。
+
+```dart
+Future<String?> transcribe({
+  required String filePath,
+  String? localeId,
+  List<String>? customWords,
+});
+```
+
+- **filePath**: 錄音檔案的路徑。
+- **localeId**: 指定語言。
+- **customWords**: 自訂詞彙庫。
+
+### `setCustomWords`
+
+設定全局自訂詞彙，用來提高語音識別中特定詞彙的識別準確度（僅 iOS 支援）。
+
+```dart
+void setCustomWords(List<String> words);
+```
+
+- **words**: 自訂詞彙的列表。
+
+### `getAvailableLanguages`
+
+獲取當前引擎支持的語言列表。
+
+```dart
+Future<List<LocaleName>> getAvailableLanguages();
+```
+
+- **返回**: 一個包含語言代碼和名稱的列表。
+
+## iOS 平台權限設置
+
+在使用 iOS 語音識別功能時，您需要在應用的 `Info.plist` 文件中添加以下權限設置：
+
+```xml
+<key>NSMicrophoneUsageDescription</key>
+<string>我們需要存取您的麥克風來進行語音識別。</string>
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>我們需要使用語音識別來轉換語音為文字。</string>
+```
+
+這些權限用於向用戶解釋應用程式需要麥克風和語音識別的原因，否則應用將無法執行語音識別功能。
 
 ## 注意事項
 
-- **權限設置**：使用語音識別功能前，請確保已獲取麥克風訪問權限。
+- **權限設置**：使用語音識別功能前，請確保已獲取麥克風和語音識別的訪問權限。
 - **自訂詞彙支持**：
-  - **iOS**：支持透過 `contextualStrings` 添加自訂詞彙。
-  - **Android**：目前暫不支持自訂詞彙功能，後續版本將引入該功能。
+  - **iOS**：支持透過 `contextualStrings` 添加自訂詞彙，以提高特定詞彙的識別準確度。
+  - **Android**：目前 Android 暫不支持自訂詞彙功能，後續版本將引入該功能。
 - **隱私政策**：在應用中使用語音識別時，請遵守相關的隱私政策和法規，保護用戶的語音數據安全。
 
 ## 貢獻指南
