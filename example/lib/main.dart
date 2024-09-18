@@ -44,6 +44,7 @@ class _MyAppState extends State<MyApp> {
       _recognizedText = '';
     });
     _speechToText.startListening(
+      localeId: 'zh_TW',
       onResult: (text) {
         setState(() {
           _recognizedText = text;
