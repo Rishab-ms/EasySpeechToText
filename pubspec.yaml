@@ -1,7 +1,8 @@
 name: easy_speech_to_text
-description: "A new Flutter plugin project."
-version: 0.0.1
-homepage:
+description: A Flutter plugin for real-time speech-to-text conversion on iOS and Android.
+version: 0.0.1+1
+author: Oliver <tc3oliver@gmail.com>
+homepage: https://github.com/tc3oliver/EasySpeechToText
 
 environment:
   sdk: ^3.5.3

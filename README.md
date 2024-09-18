@@ -1,15 +1,59 @@
-# easy_speech_to_text
+# EasySpeechToText
 
-A new Flutter plugin project.
+## 插件簡介
 
-## Getting Started
+**EasySpeechToText** 是一個為 Flutter 應用提供語音識別功能的插件，支持 iOS 和 Android 平台。它提供了統一且易於使用的 Dart 介面，讓開發者可以輕鬆地在應用中實現即時流式語音識別和錄音檔轉文字的功能。
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## 功能特性
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **跨平台支持**：同時支援 iOS 和 Android 平台的語音識別功能。
+- **即時語音識別**：提供即時的語音轉文字功能，適用於語音輸入等場景。
+- **錄音檔轉文字**：支援將錄製的音頻檔案轉換為文字。
+- **自訂詞彙（僅 iOS）**：在 iOS 平台上支援自訂詞彙，提高特定詞彙的識別準確度。
+- **簡潔的 Dart 介面**：統一的 API 設計，方便開發者快速上手。
+- **非同步處理**：使用 `Future` 和 `Stream`，高效處理非同步操作。
 
+## 安裝方法
+
+在您的 `pubspec.yaml` 文件中添加以下依賴：
+
+```yaml
+dependencies:
+  easy_speech_to_text: ^0.1.0
+```
+
+然後在專案目錄下運行：
+
+```bash
+flutter pub get
+```
+
+## 基本使用示例
+
+（待更新）
+
+## API 說明
+
+（待更新）
+
+## 注意事項
+
+- **權限設置**：使用語音識別功能前，請確保已獲取麥克風訪問權限。
+- **自訂詞彙支持**：
+  - **iOS**：支持透過 `contextualStrings` 添加自訂詞彙。
+  - **Android**：目前暫不支持自訂詞彙功能，後續版本將引入該功能。
+- **隱私政策**：在應用中使用語音識別時，請遵守相關的隱私政策和法規，保護用戶的語音數據安全。
+
+## 貢獻指南
+
+歡迎任何形式的貢獻！如果您有興趣參與本專案的開發，請遵循以下步驟：
+
+1. **Fork 本倉庫**：點擊右上角的 "Fork" 按鈕，將本專案複製到您的帳戶中。
+2. **克隆到本地**：使用 `git clone` 將 Fork 後的倉庫克隆到本地。
+3. **創建分支**：為您的修改創建一個新的分支，例如 `feature/my-new-feature`。
+4. **提交修改**：在本地進行開發，並提交代碼到您的分支。
+5. **發起 Pull Request**：將您的分支推送到 GitHub，並發起 Pull Request，描述您的修改內容和目的。
+
+## 許可證信息
+
+本專案採用 [MIT 許可證](LICENSE) 開源。您可以自由地使用、修改和分發本專案的代碼，但需要保留原作者的版權聲明和許可證資訊。
