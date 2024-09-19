@@ -67,7 +67,7 @@ extension EasySpeechToTextPlugin {
     // Initialize speech recognizer
     func initialize(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let args = call.arguments as? [String: Any]
-        let localeId = args?["localeId"] as? String ?? Locale.current.identifier
+        let localeId = Locale.current.identifier
         self.speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: localeId))
         
         if self.speechRecognizer == nil {
