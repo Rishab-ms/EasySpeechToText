@@ -41,20 +41,27 @@ class _MyAppState extends State<MyApp> {
   void _startListening() {
     setState(() {
       _isListening = true;
-      _recognizedText = '';
+      _recognizedText = ''; // 清空之前的辨識結果
     });
+
     _speechToText.startListening(
       localeId: 'zh_TW',
       onResult: (text) {
         setState(() {
-          _recognizedText = text;
+          // 確認這次辨識結果與之前的不同，才進行更新
+          if (!_recognizedText.endsWith(text)) {
+            debugPrint('Recognized: $text');
+            _recognizedText += text; // 追加新的結果
+          }
         });
       },
       onError: (error) {
-        debugPrint('Error: $error');
-        setState(() {
-          _isListening = false;
-        });
+        debugPrint('Error111: $error');
+        if (error != 'No match found') {
+          setState(() {
+            _isListening = false;
+          });
+        }
       },
     );
   }
