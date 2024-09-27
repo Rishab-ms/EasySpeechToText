@@ -11,7 +11,7 @@
         android:label="easy_speech_to_text_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:label"> <!-- 避免與插件中的 label 屬性衝突 -->
+        tools:replace="android:label,android:icon">
 
         <!-- MainActivity 設定 -->
         <activity
