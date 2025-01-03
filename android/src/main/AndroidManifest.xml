@@ -5,7 +5,6 @@ package="com.example.easy_speech_to_text">
 <uses-permission android:name="android.permission.INTERNET"/>
 
 <application
-    android:label="easy_speech_to_text"
     android:icon="@mipmap/ic_launcher">
     <!-- 插件的其他設置 -->
 </application>
