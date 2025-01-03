@@ -5,8 +5,9 @@ author: Oliver <tc3oliver@gmail.com>
 homepage: https://github.com/tc3oliver/EasySpeechToText
 
 environment:
-  sdk: ^3.5.3
-  flutter: '>=3.3.0'
+  sdk: ">=2.19.0 <3.0.0"
+  # sdk: ^3.0.0
+  # flutter: '>=3.3.0'
 
 dependencies:
   flutter:
@@ -18,7 +19,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   mockito: ^5.4.4
-  build_runner: ^2.4.12
+  build_runner: ^2.4.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
